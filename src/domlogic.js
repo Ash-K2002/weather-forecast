@@ -21,66 +21,80 @@ target3.appendChild(forecastDeck);
 }
 
 function setForecast(item){
-const card = addContent('div','',{'class':'weather-card card'});
-const title=addContent('h1',item.date);
+const card = addContent('div','',{'class':'weather-card forecast-card'});
+
+const forecastTitle=addContent('h2',item.date,{'class':'card-title forecast-card-title'});
+
 const icon = document.createElement('img');
 icon.setAttribute('src',item.day.condition.icon);
-const condition = addContent('div','Condition: '+item.day.condition.text);
-const temp=addContent('div','');
-const tempTitle=addContent('h3','Temperature');
-const avgTemp = addContent('div','Avg Temp:'+item.day.avgtemp_c+' C');
-const maxTemp = addContent('div','Max Temp:'+item.day.maxtemp_c+' C');
-const minTemp = addContent('div','Min Temp:'+item.day.mintemp_c+' C');
-const chanceRain=addContent('div','chances of rain: '+item.day.daily_chance_of_rain+'%');
-const chanceSnow=addContent('div','chances of snow: '+item.day.daily_chance_of_snow+'%');
-const precipitation=addContent('div','Precipitation: '+item.day.totalprecip_mm+' mm');
-const snow=addContent('div','Snow Fall: '+item.day.totalsnow_cm+' cm');
-card.appendChild(title);
+icon.setAttribute('class','card-icon');
+
+const forecastData=addContent('ul','',{'class':'card-data forecast-data'});
+
+const condition = addContent('li','Condition: '+item.day.condition.text,{'class':'card-item'});
+const temp=addContent('li','',{'class':'card-item temp-data'});
+const tempTitle=addContent('div','Temperature: ');
+const tempData=addContent('ul','');
+const avgTemp = addContent('li','Avg:'+item.day.avgtemp_c+' C');
+const maxTemp = addContent('li','Max:'+item.day.maxtemp_c+' C');
+const minTemp = addContent('li','Min:'+item.day.mintemp_c+' C');
+const chanceRain=addContent('li','chances of rain: '+item.day.daily_chance_of_rain+'%',{'class':'card-item'});
+const chanceSnow=addContent('li','chances of snow: '+item.day.daily_chance_of_snow+'%',{'class':'card-item'});
+const precipitation=addContent('li','Precipitation: '+item.day.totalprecip_mm+' mm',{'class':'card-item'});
+const snow=addContent('li','Snow Fall: '+item.day.totalsnow_cm+' cm',{'class':'card-item'});
+card.appendChild(forecastTitle);
 card.appendChild(icon);
-card.appendChild(condition);
+card.appendChild(forecastData);
+forecastData.appendChild(condition);
+forecastData.appendChild(temp);
+forecastData.appendChild(chanceRain);
+forecastData.appendChild(chanceSnow);
+forecastData.appendChild(precipitation);
+forecastData.appendChild(snow);
 temp.appendChild(tempTitle);
-temp.appendChild(avgTemp);
-temp.appendChild(maxTemp);
-temp.appendChild(minTemp);
-card.appendChild(temp);
-card.appendChild(chanceRain);
-card.appendChild(chanceSnow);
-card.appendChild(precipitation);
-card.appendChild(snow);
+temp.appendChild(tempData);
+tempData.appendChild(avgTemp);
+tempData.appendChild(maxTemp);
+tempData.appendChild(minTemp);
 return card;
 }
 
 function setCurr(current){
-    const card=addContent('div','',{'class':'weather-card card'});
-    const title=addContent('h1','Current Weather');
-    const lastUpdated=addContent('div','Last updated: '+current.last_updated);
+    const card=addContent('div','',{'class':'weather-card curr-card'});
+    const title=addContent('h2','Current Weather');
+
+    const carddata=addContent('ul','',{'class':'card-data'});
+    const lastUpdated=addContent('li','Last updated: '+current.last_updated,{'class':'card-item'});
     const icon = document.createElement('img');
     icon.setAttribute('src',current.condition.icon);
     const humidity=addContent('div','Humidity: '+current.humidity);
-    const precipitation=addContent('div','Precipitation: '+current.precip_mm+' mm');
-    const condition=addContent('div','Condition: '+current.condition.text);
-    const temp=addContent('div','Temperature: '+current.temp_c+' C');
+    const precipitation=addContent('div','Precipitation: '+current.precip_mm+' mm',{'class':'card-item'});
+    const condition=addContent('div','Condition: '+current.condition.text,{'class':'card-item'});
+    const temp=addContent('div','Temperature: '+current.temp_c+' C',{'class':'card-item'});
     card.appendChild(title);
-    card.appendChild(lastUpdated);
     card.appendChild(icon);
-    card.appendChild(condition);
-    card.appendChild(temp);
-    card.appendChild(humidity);
-    card.appendChild(precipitation);
+    card.appendChild(carddata);
+    carddata.appendChild(lastUpdated);
+    carddata.appendChild(condition);
+    carddata.appendChild(temp);
+    carddata.appendChild(humidity);
+    carddata.appendChild(precipitation);
 
     return card;
 }
 
 function setLocation(location){
     const card=addContent('div','',{'class':'location-card'});
-    const country=addContent('div','Country: '+location.country);
-    const name=addContent('div','Name: '+location.name);
-    const region=addContent('div','Region: '+location.region);
-    const localTime=addContent('div','Local Time: '+location.localtime);
-    card.appendChild(name);
-    card.appendChild(region);
-    card.appendChild(country);
-    card.appendChild(localTime);
+    const carddata=addContent('ul','',{'class':'card-data location-data'});
+    const country=addContent('li','Country: '+location.country);
+    const name=addContent('li','Name: '+location.name);
+    const region=addContent('li','Region: '+location.region);
+    const localTime=addContent('li','Local Time: '+location.localtime);
+    card.appendChild(carddata);
+    carddata.appendChild(name);
+    carddata.appendChild(region);
+    carddata.appendChild(country);
+    carddata.appendChild(localTime);
     return card;
 }
 
@@ -93,5 +107,7 @@ for(const property in attributes){
 }
 return element;
 }
+
+
 
 export {showData};

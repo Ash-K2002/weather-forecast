@@ -22,7 +22,5 @@ findBtn.addEventListener('click',()=>{
     else{
         message.textContent='Please check your query or try again later';
     }
-    
-
 })();
 });
