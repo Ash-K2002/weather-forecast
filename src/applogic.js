@@ -5,7 +5,7 @@
 
 async function getWeatherObject(location='Delhi,India'){
    try{
-    const response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=cc63f62a75c7487f9c2151339242703&days=3&q='+location,{mode:'cors'});
+    const response = await fetch('https://api.weatherapi.com/v1/forecast.json?key=cc63f62a75c7487f9c2151339242703&days=3&q='+location,{mode:'cors'});
     
     if(!response.ok){
         throw new Error('Network response not ok');
